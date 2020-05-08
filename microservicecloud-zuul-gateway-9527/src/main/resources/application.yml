@@ -1,0 +1,28 @@
+server:
+  port: 9527
+
+spring:
+  application:
+    name: microservicecloud-zuul-gateway
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka,http://eureka7003.com:7003/eureka
+  instance:
+    instance-id: gateway-9527.com
+    prefer-ip-address: true
+
+info:
+  app.name: rubit-microcloud
+  company.name: www.rubit.com
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
+
+zuul:
+  prefix: /rubit  #设置统一公共前缀
+  ignored-services: "*"  # 忽略多个微服务的服务名
+#  ignored-services: microservicecloud-dept-yubo #原真实服务名忽略（忽略一个）
+  routes:
+    mydept.serviceId: microservicecloud-dept-yubo
+    mydept.path: /mydept/**   #  id 和路由的映射
